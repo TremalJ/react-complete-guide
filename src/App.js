@@ -26,6 +26,16 @@ const App = props => {
     });
   };
 
+  const nameChangeHandler = (event) => {
+    setPersonsState({
+      persons: [
+        { name: 'Max', age: 28 },
+        { name: event.target.value, age: 32 },
+        { name: 'Stephanie', age: 27 }
+      ]
+    })
+  }
+
   //witouth () for execute only when is complished the envent, if we put () will be loaded on charge instantly.
   return (
     <div className="App">
@@ -40,6 +50,7 @@ const App = props => {
         name={personsState.persons[1].name}
         age={personsState.persons[1].age}
         click={switchNameHandler.bind(this, 'MaX!')}
+        changed = {nameChangeHandler}
       >
          My Hobbies: Racing
       </Person>
