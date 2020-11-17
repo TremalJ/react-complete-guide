@@ -1,3 +1,4 @@
+import Radium from 'radium';
 import React from 'react';
 import './Person.css'
 
