@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 class App extends Component {
   state = {
     persons: [
@@ -27,7 +27,7 @@ class App extends Component {
 
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
-      return p.id === id;
+      return p.userId === id;
     });
 
     const person = {
@@ -60,6 +60,13 @@ class App extends Component {
   }
 
   render () {
+    const style = {
+      backgroundColor: 'green',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
     let persons = null;
 
     if (this.state.showPersons) {
@@ -67,16 +74,18 @@ class App extends Component {
         <div>
             {this.state.persons.map((person, index) => {
               return (
-                <Person
+                <ErrorBoundary key={person.id}> <Person
                   click={() => this.deletePersonHandler(index)}
                   name={person.name} 
                   age={person.age} 
-                  key={person.id} 
-                  changed = {(event) => this.nameChangedHandler(event, person.id)} />
+                  changed = {(event) => this.nameChangedHandler(event, person.id)} /></ErrorBoundary>
               )
             })}
           </div> 
       );
+
+
+      style.backgroundColor = 'red';
     }
 
     // let classes = ['red', 'bold'].join(' ');
@@ -94,7 +103,7 @@ class App extends Component {
         <div className="App">
           <h1>Hi, I'm a React App</h1>
           <p className={classes.join(' ')}>This is really working!</p>
-          <button className="button" alt={this.state.showPersons}
+          <button style={style} alt={this.state.showPersons}
             onClick={this.togglePersonsHandler}>Switch Name
           </button>
           {persons}
