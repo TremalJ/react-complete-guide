@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import './App.css';
-import Radium, {  StyleRoot } from 'radium';
 import Person from './Person/Person';
+
+const StyledButton = styled.button`
+  background-color: green;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+      background-color: lightgreen;
+      color: black;
+  }
+`
 
 class App extends Component {
   state = {
@@ -61,18 +74,6 @@ class App extends Component {
   }
 
   render () {
-    const style = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-          backgroundColor: 'lightgreen',
-          color: 'black'
-      }
-    };
-
     let persons = null;
 
     if (this.state.showPersons) {
@@ -90,13 +91,6 @@ class App extends Component {
             })}
           </div> 
       );
-
-
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
     }
 
     // let classes = ['red', 'bold'].join(' ');
@@ -111,18 +105,17 @@ class App extends Component {
 
 
     return (
-      <StyleRoot>
         <div className="App">
           <h1>Hi, I'm a React App</h1>
           <p className={classes.join(' ')}>This is really working!</p>
-          <button style={style} 
-          onClick={this.togglePersonsHandler}>Switch Name</button>
+          <StyledButton
+            onClick={this.togglePersonsHandler}>Switch Name
+          </StyledButton>
           {persons}
         </div>
-      </StyleRoot>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
-export default Radium(App);
+export default App;
