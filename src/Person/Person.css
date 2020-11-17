@@ -16,6 +16,8 @@
     font-weight: bold;
 }
 
-button:hover {
-    
+@media (min-width: 500px) {
+    .Person {
+        width : 500px;
+    }
 }
