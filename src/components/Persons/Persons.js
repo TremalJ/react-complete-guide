@@ -4,7 +4,7 @@ import Person from './Person/Person';
 // const persons = (props) => (props.persons.map( (person, index) => {
 class Persons extends Component {  
     state = {
-        
+
     }
     
 
@@ -30,6 +30,10 @@ class Persons extends Component {
     componentDidUpdate(prevProps, prevSate, snapshot) {
         console.log ('[Persons.js] componentDidUpdate')
         console.log(snapshot);
+    }
+
+    componentWillUnmount () {
+        console.log ('[Persons.js] componentWillUnmount')
     }
 
     render () {

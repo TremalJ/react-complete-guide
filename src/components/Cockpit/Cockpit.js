@@ -7,8 +7,19 @@ const Cockpit = (props) => {
        //HTTP request...
        setTimeout(() => {
           alert('Saved data to the cloud!!')
-       },1000)
-    }, [props.persons]);
+       },1000);
+      return () => {
+        console.log('[cockpit.js] Cleanyp work in useEffect')
+      }
+    }, []);
+
+    useEffect(() => {
+      console.log('[Cockpit.js] 2 useEffect');
+      //HTTP request...
+     return () => {
+       console.log('[cockpit.js] Cleanyp work in 2nd useEffect')
+     };
+   });
 
     let assignedClasses = [];
     let btnClass = 'green';
