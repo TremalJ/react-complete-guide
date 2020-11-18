@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import Person from './Person/Person';
 
 // const persons = (props) => (props.persons.map( (person, index) => {
-class Persons extends Component {    
+class Persons extends Component {  
+    state = {
+        
+    }
+    
+
     static getDerivedStateFromProps(props, state) {
         console.log ('[Persons.js] getDriveStateFromProps', props)
         return state;
