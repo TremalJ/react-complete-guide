@@ -25,6 +25,10 @@ class Persons extends Component {
         return false; 
     }
 
+    //hen you should not add shouldComponentUpdate or React memo because you will just execute some extra
+
+    // logic that makes no sense and actually just slows down the application a tiny bit.
+
     getSnapshotBeforeUpdate(prevProps, prevState) { //included later in componentDidUpdate
         console.log ('[Persons.js] getSnapshotBeforeUpdate')
         return { message: 'snapshot!'};
