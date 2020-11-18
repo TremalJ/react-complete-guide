@@ -17,10 +17,10 @@ class Persons extends Component {
         return true; 
     }
 
-    // getSnapshotBeforeUpdate(prevProps, prevState) { //included later in componentDidUpdate
-    //     console.log ('[Persons.js] getSnapshotBeforeUpdate')
-    //     return { message: 'snapshot!'};
-    // }
+    getSnapshotBeforeUpdate(prevProps, prevState) { //included later in componentDidUpdate
+        console.log ('[Persons.js] getSnapshotBeforeUpdate')
+        return { message: 'snapshot!'};
+    }
 
     componentDidUpdate(prevProps, prevSate, snapshot) {
         console.log ('[Persons.js] componentDidUpdate')
