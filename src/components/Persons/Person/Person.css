@@ -8,14 +8,6 @@
     margin-top: 10px;
 }
 
-.red {
-    color:red;
-}
-
-.bold {
-    font-weight: bold;
-}
-
 @media (min-width: 500px) {
     .Person {
         width : 500px;
