@@ -3,6 +3,12 @@ import './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor', props);
+  }
+
+
   state = {
     persons: [
       { id: 'asfa1' , name: 'Max', age: 28 },
@@ -11,6 +17,11 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false
+  }
+
+  static getDerivedStateFromProps (props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
   }
 
   switchNameHandler = (newName) => {
@@ -23,6 +34,14 @@ class App extends Component {
         { name: 'Stephanie', age: 27 }
       ]
     } )
+  }
+
+  // componentWillMount () { //Included in getDerivedStateFromProps
+  //   console.log('[App.js] componentWillMount')
+  // }
+
+  componentDidMount () {
+    console.log('[App.js] componentDidMount')
   }
 
   nameChangedHandler = (event, id) => {
@@ -60,6 +79,7 @@ class App extends Component {
   }
 
   render () {
+    console.log('[App.js] render')
     const style = {
       backgroundColor: 'green',
       font: 'inherit',
@@ -85,6 +105,7 @@ class App extends Component {
     return (
         <div className="App">
           <Cockpit 
+            title={this.props.appTitle}
             showPersons={this.state.showPersons}
             persons={this.state.persons}
             clicked={this.togglePersonsHandler}
