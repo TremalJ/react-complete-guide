@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Person from './Person/Person';
 
 // const persons = (props) => (props.persons.map( (person, index) => {
-class Persons extends Component {  
+class Persons extends PureComponent {  
     state = {
 
     }
@@ -17,13 +17,15 @@ class Persons extends Component {
     //     console.log('[Persons.js] componentWillReceiveProps',props )
     // }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('[Persons.js] shouldComponentUpdate')
-        if(nextProps.persons !== this.props.person) {
-            return true;
-        }
-        return false; 
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('[Persons.js] shouldComponentUpdate')
+    //     if(nextProps.persons !== this.props.person || 
+    //        nextProps.changed !== this.props.changed ||
+    //        nextProps.clicked !==this.props.click) {
+    //         return true;
+    //     }
+    //     return false; 
+    // }
 
     //hen you should not add shouldComponentUpdate or React memo because you will just execute some extra
 
