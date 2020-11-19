@@ -1,52 +1,50 @@
 import React, { useEffect } from 'react';
-import './Cockpit.css';
 
-const Cockpit = (props) => {
-    useEffect(() => {
-       console.log('[Cockpit.js] useEffect');
-       //HTTP request...
-       const timer = setTimeout(() => {
-          alert('Saved data to the cloud!!')
-       },1000);
-      return () => {
-        clearTimeout(timer);
-        console.log('[cockpit.js] Cleanyp work in useEffect')
-      }
-    }, []);
+import classes from './Cockpit.css';
 
-    useEffect(() => {
-      console.log('[Cockpit.js] 2 useEffect');
-      //HTTP request...
-     return () => {
-       console.log('[cockpit.js] Cleanyp work in 2nd useEffect')
-     };
-   });
+const Cockpit = props => {
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    // Http request...
+    setTimeout(() => {
+      alert('Saved data to cloud!');
+    }, 1000);
+    return () => {
+      console.log('[Cockpit.js] cleanup work in useEffect');
+    };
+  }, []);
 
-    let assignedClasses = [];
-    let btnClass = 'green';
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+    };
+  });
 
-    if(props.showPersons) {
-      btnClass = 'red';
-    }
+  // useEffect();
 
-    console.log(props.personsLength);
+  const assignedClasses = [];
+  let btnClass = '';
+  if (props.showPersons) {
+    btnClass = classes.Red;
+  }
 
-    if(props.personsLength <= 2) {
-      assignedClasses.push('pred'); // classes['red'];
-    }
-    if(props.personsLength <= 1) {
-      assignedClasses.push('pbold') // classes ['red', 'bold'];
-    }   
-  
-    return (
-        <div>
-            <h1>{props.title}</h1>
-            <p className={assignedClasses.join(' ')}>This is really working!</p>
-            <button className={btnClass} alt={props.showPersons.toString()}
-                onClick={props.clicked}>Switch Name
-            </button>
-        </div>  
-    );    
+  if (props.personsLength <= 2) {
+    assignedClasses.push(classes.red); // classes = ['red']
+  }
+  if (props.personsLength <= 1) {
+    assignedClasses.push(classes.bold); // classes = ['red', 'bold']
+  }
+
+  return (
+    <div className={classes.Cockpit}>
+      <h1>{props.title}</h1>
+      <p className={assignedClasses.join(' ')}>This is really working!</p>
+      <button className={btnClass} onClick={props.clicked}>
+        Toggle Persons
+      </button>
+    </div>
+  );
 };
 
 export default React.memo(Cockpit);

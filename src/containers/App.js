@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
@@ -8,54 +9,41 @@ import Aux from '../hoc/Aux';
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log('[App.js] constructor', props);
+    console.log('[App.js] constructor');
   }
-
 
   state = {
     persons: [
-      { id: 'asfa1' , name: 'Max', age: 28 },
-      { id: 'asfa2' , name: 'Manu', age: 29 },
-      { id: 'asfa3' , name: 'Stephanie', age: 26 }
+      { id: 'asfa1', name: 'Max', age: 28 },
+      { id: 'vasdf1', name: 'Manu', age: 29 },
+      { id: 'asdf11', name: 'Stephanie', age: '26' }
     ],
     otherState: 'some other value',
     showPersons: false,
     showCockpit: true,
-    changeCounter: true,
-  }
+    changeCounter: 0
+  };
 
-  static getDerivedStateFromProps (props, state) {
+  static getDerivedStateFromProps(props, state) {
     console.log('[App.js] getDerivedStateFromProps', props);
     return state;
   }
 
-  switchNameHandler = (newName) => {
-    // console.log('Was clicked!');
-    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
-    this.setState( {
-      persons: [
-        { name: newName, age: 28 },
-        { name: 'Manu', age: 29 },
-        { name: 'Stephanie', age: 27 }
-      ]
-    } )
-  }
-
-  // componentWillMount () { //Included in getDerivedStateFromProps
-  //   console.log('[App.js] componentWillMount')
+  // componentWillMount() {
+  //   console.log('[App.js] componentWillMount');
   // }
 
-  componentDidMount () {
-    console.log('[App.js] componentDidMount')
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
   }
 
-  shouldComponentDidUpdate () {
-    console.log('[App.js] shouldComponentDidUpdate')
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
     return true;
   }
 
-  componentDidUpdate () {
-    console.log('[App.js] componentDidUpdate')
+  componentDidUpdate() {
+    console.log('[App.js] componentDidUpdate');
   }
 
   nameChangedHandler = (event, id) => {
@@ -72,73 +60,61 @@ class App extends Component {
     person.name = event.target.value;
 
     const persons = [...this.state.persons];
-
     persons[personIndex] = person;
 
     this.setState((prevState, props) => {
-        return{
-          persons: persons,
-          changeCounter: prevState.state.changeCounter + 1,
-        };
-    }); 
-  }
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      };
+    });
+  };
+
+  deletePersonHandler = personIndex => {
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
+  };
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({showPersons: !doesShow});
-  }
+    this.setState({ showPersons: !doesShow });
+  };
 
-  deletePersonHandler = (personIndex) => {
-      // const persons = this.state.persons.slice();
-      const persons = [...this.state.persons];
-      persons.splice(personIndex, 1); // delete elements from an array
-      this.setState({persons: persons})
-  }
-
-  render () {
-    console.log('[App.js] render')
-    const style = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    };
+  render() {
+    console.log('[App.js] render');
     let persons = null;
 
     if (this.state.showPersons) {
       persons = (
-        <div>
-          <Persons 
-            persons = {this.state.persons}
-            clicked = {this.deletePersonHandler}
-            changed = {this.nameChangedHandler}
-          />
-        </div>
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+        />
       );
-      style.backgroundColor = 'red';
     }
 
     return (
-        <Aux>
-          <button 
-            onClick={() => {
-                this.setState({ showCockpit: false});
-              }
-            }
-          >
+      <Aux>
+        <button
+          onClick={() => {
+            this.setState({ showCockpit: false });
+          }}
+        >
           Remove Cockpit
-          </button>
-          {this.state.showCockpit ? 
-          <Cockpit 
+        </button>
+        {this.state.showCockpit ? (
+          <Cockpit
             title={this.props.appTitle}
             showPersons={this.state.showPersons}
-            persons={this.state.persons}
             personsLength={this.state.persons.length}
             clicked={this.togglePersonsHandler}
-          /> : null}
-          {persons}
-          </Aux>
+          />
+        ) : null}
+        {persons}
+      </Aux>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
